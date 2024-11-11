@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const storeOrUpdateUser = require('../utils/storeOrUpdateUser');
+const storeOrUpdateRun = require('../utils/storeOrUpdateRun');
 
 router.get("/", (req, res) => {
     console.log(req.oidc.isAuthenticated());
@@ -26,6 +27,27 @@ router.get("/user/id", async (req, res) => {
         user: `${user.sub} ${user.name}`
     });
 });
+
+router.post('/runs', async (req, res) => {
+    // if (!req.oidc || !req.oidc.user) {
+    //     return res.status(401).send("User not authenticated");
+    //   }
+    
+    const runData = req.body;
+
+    try {
+      await storeOrUpdateRun(runData);
+      res.status(201).send('Run added successfully');
+    } catch (err) {
+      res.status(500).send('Error storing run');
+    }
+});
+
+// Example route to get all runs for a user
+router.get('/getRuns/:userId', async (req, res) => {
+   console.log('nothing yet')
+});
+
 
 
 module.exports = router;

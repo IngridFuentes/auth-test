@@ -25,6 +25,7 @@ app.use(express.static("public"))
 app.use(auth(config));
 
 app.use("/", indexRouter);
+app.use("/run", indexRouter);
 
 
 app.listen(3000, () => {
