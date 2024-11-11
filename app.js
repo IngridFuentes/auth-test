@@ -13,8 +13,6 @@ const config = {
     clientID: process.env.CLIENTID,
     issuerBaseURL: process.env.ISSUER
   };
-  
-  // auth router attaches /login, /logout, and /callback routes to the baseURL
 
 const app = express();
 app.set("views", "views");
@@ -25,7 +23,8 @@ app.use(express.static("public"))
 app.use(auth(config));
 
 app.use("/", indexRouter);
-app.use("/run", indexRouter);
+app.use("/runs", indexRouter);
+app.use("/user/id/runs", indexRouter);
 
 
 app.listen(3000, () => {
